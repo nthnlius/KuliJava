@@ -7,7 +7,6 @@ public class Deck {
     
     // konstruktor untuk deck
     public Deck(){
-        Random random = new Random();
         for (int i=0; i<54; i++){
             int randomvalue = i;
             if (randomvalue % 54 == 0){// skip merah
@@ -173,5 +172,15 @@ public class Deck {
                 cards.add(new NormalCard(9,7));
             }
         }
+    }
+    public CardUmum drawcard(int jumlah){
+        Random random = new Random();
+        int rnd = random.nextInt(55);
+        return cards.get(rnd);
+    }
+    public Cardumum openingcard(){
+        Random random = new Random();
+        int rnd = random.nextInt(40);
+        return cards.get(rnd+14);
     }
 }
