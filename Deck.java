@@ -173,12 +173,12 @@ public class Deck {
             }
         }
     }
-    public CardUmum drawcard(int jumlah){
+    public CardUmum drawcard(){
         Random random = new Random();
         int rnd = random.nextInt(55);
         return cards.get(rnd);
     }
-    public Cardumum openingcard(){
+    public CardUmum openingcard(){
         Random random = new Random();
         int rnd = random.nextInt(40);
         return cards.get(rnd+14);

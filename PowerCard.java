@@ -50,9 +50,10 @@ public class PowerCard implements CardUmum{
         }
         else{
             return ("berwarna tidak jelas");
+        }
     }
     public boolean iswarnasama(CardUmum input){
-        return (this.getcolornumber()%input.getcolornumber() == 0 || input.getcolornumber()%this.getcolornumber == 0);
+        return (this.getcolornumber()%input.getcolornumber() == 0 || input.getcolornumber()%this.getcolornumber() == 0);
     }
     public boolean isangkasama(CardUmum input){
         if (this.getClass() == input.getClass()){
@@ -62,4 +63,18 @@ public class PowerCard implements CardUmum{
             return false;
         }
     }
+    public void printcardinfo(){
+        System.out.println(this.getAngka() + " " + this.getcolor());
+    }
+    public void setColor(int input){
+        this.color = input;
+    }
+    /* color adalah integer positif prima. 
+       dipilih untuk menghemat space yang digunakan.
+       angka 2 untuk merah
+       angka 3 untuk biru
+       angka 5 untuk kuning
+       angka 7 untuk hijau
+       angka 210 untuk warna hitam(wild card)
+       */
 }
