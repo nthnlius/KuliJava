@@ -83,7 +83,7 @@ class PlayerBase{
 			d.printcardinfo();
 		}
 	  }
-	  System.out.printf("%d. Ambil Kartu\n", i);
+	  System.out.printf("%d. Ambil Card\n", (i+1));
   }
 
   public void playerdraw(int count){

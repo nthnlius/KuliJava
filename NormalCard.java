@@ -32,10 +32,10 @@ public class NormalCard implements CardUmum{
         }
     }
     public void printcardinfo(){
-        System.out.println("Kartu angka " + this.angka+this.getcolor());
+        System.out.println("Kartu angka " + this.angka+ " " +this.getcolor());
     }
     public boolean iswarnasama(CardUmum input){
-        return (this.getcolornumber()%input.getcolornumber() == 0 || input.getcolornumber()%this.getcolornumber == 0);
+        return (this.getcolornumber()%input.getcolornumber() == 0 || input.getcolornumber()%this.getcolornumber() == 0);
     }
     public boolean isangkasama(CardUmum input){
         if (this.getClass() == input.getClass()){
@@ -44,5 +44,8 @@ public class NormalCard implements CardUmum{
         else{
             return false;
         }
+    }
+    public void setColor(int input){
+        this.color = input;
     }
 }

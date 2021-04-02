@@ -6,6 +6,7 @@ public interface CardUmum{
     public void printcardinfo();
     public boolean iswarnasama(CardUmum input);
     public boolean isangkasama(CardUmum input);
+    public void setColor(int input);
     /* angka untuk kartu yang power = false akan merepresentasikan
        angka sesuai dengan nomornya.
        sedangkan untuk kartu yang power = true akan ada representasinya tersendiri

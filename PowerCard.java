@@ -1,80 +1,68 @@
-public class PowerCard implements CardUmum{
-    private int angka;
-    private int color;
-    private boolean power;
+import javax.smartcardio.ATR;
+import javax.smartcardio.Card;
+import java.util.ArrayList;
+
+public class PowerCard extends CardPower {
+    boolean direction;
     public PowerCard(int angka, int color){
-        this.angka = angka;
-        this.color = color;
+        super(angka, color);
     }
-    public int getAngkaangka(){
-        return this.angka;
+    public int skip(int skipped, int giliran){
+        for (int i = 0; i< skipped; i++){
+            giliran++;
+        }
+        return giliran;
     }
-    public String getAngka(){
-        if (this.angka == 0){
-            return ("kartu skip");
-        }
-        else if (this.angka == 1){
-            return ("kartu reverse");
-        }
-        else if (this.angka == 2){
-            return ("kartu plus 2");
-        }
-        else if (this.angka == 3){
-            return ("kartu wild card");
-        }
-        else if (this.angka == 4){
-            return ("kartu wild plus 4");
-        }
-        else{
-            return ("kartu tidak jelas");
-        }
+    public ArrayList<Player> reverse(ArrayList<Player> playerlist, int giliran){
+        List<Player> newlist = new ArrayList<Player>();
+        Collections.copy(newlist , playerlist);
+        Collections.reverse(newlist);
+        return newlist;
     }
-    public int getcolornumber(){
-        return this.color;
-    }
-    public String getcolor(){
-        if (this.color == 2){
-            return ("berwarna merah");
-        }
-        else if (this.color ==3){
-            return ("berwarna biru");
-        }
-        else if (this.color == 5){
-            return ("berwarna kuning");
-        }
-        else if (this.color == 7){
-            return ("berwarna hijau");
-        }
-        else if (this.color == 210){
-            return ("");
-        }
-        else{
-            return ("berwarna tidak jelas");
-        }
-    }
-    public boolean iswarnasama(CardUmum input){
-        return (this.getcolornumber()%input.getcolornumber() == 0 || input.getcolornumber()%this.getcolornumber() == 0);
-    }
-    public boolean isangkasama(CardUmum input){
-        if (this.getClass() == input.getClass()){
-            return (this.getAngkaangka()==input.getAngkaangka());
-        }
-        else{
-            return false;
-        }
-    }
-    public void printcardinfo(){
-        System.out.println(this.getAngka() + " " + this.getcolor());
-    }
-    public void setColor(int input){
-        this.color = input;
-    }
-    /* color adalah integer positif prima. 
-       dipilih untuk menghemat space yang digunakan.
-       angka 2 untuk merah
-       angka 3 untuk biru
-       angka 5 untuk kuning
-       angka 7 untuk hijau
-       angka 210 untuk warna hitam(wild card)
-       */
+    
+    // public enum Direction {
+    //     forwards, backwards
+    // };
+
+    // public void advanceToNextPlayer() {
+    //     currPlayer = getNextPlayer();
+    // }
+
+    // public int getNextPlayer() {
+    //     return (currPlayer + 1);
+    // }
+
+    // public void reverseDirection() {
+    //     if (direction == Direction.forwards) {
+    //         direction = Direction.backwards;
+    //     } else {
+    //         direction = Direction.forwards;
+    //     }
+    // }
+
+    // @Override
+    // public boolean power() {
+    //     if (this.getAngkaangka() == 0) {
+    //         advanceToNextPlayer();
+    //         advanceToNextPlayer();
+    //     } else if (this.getAngkaangka() == 1) {
+    //         reverseDirection();
+    //         advanceToNextPlayer();
+    //         break;
+    //     } else if (this.getAngkaangka() == 2) {
+    //         nextPlayer();
+    //         nextPlayer();
+    //         advanceToNextPlayer();
+    //         advanceToNextPlayer();
+    //         break;
+    //     } else if (this.getAngkaangka() == 3) {
+    //         getNextPlayer();
+    //         getNextPlayer();
+    //         getNextPlayer();
+    //         getNextPlayer();
+    //         advanceToNextPlayer();
+    //         advanceToNextPlayer();
+    //         break;
+    //     }
+    // }
 }

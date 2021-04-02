@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Scanner;
 public class Player extends PlayerBase{
 	private String name;
 	private boolean inTurn = false;
@@ -14,7 +15,7 @@ public class Player extends PlayerBase{
 	//Public methods for declare HIJI
 	public void declaerHiji(){
 		int cardsCount = this.getCardsLeft();
-		if((this.inTurn == true) && cardsCount==1){
+		if((this.inTurn) && cardsCount==1){
 			System.out.printf("%d mendeklarasikan HIJI!\n", this.name);
 		}
 	}
@@ -46,7 +47,7 @@ public class Player extends PlayerBase{
 	  //       System.out.print("Anda telah mengambil kartu ");
 	  //       c.printcardinfo();
 	  //     }
-	  //     //System.out.printf("mengambil kartu power: %b, angka: %d, color: %d\n", c.getPower(), c.getAngka(), c.getColor());
+	  //     //System.out.printf("mengambil kartu power: %b, angka: %d, color: %d\n", c.getPower(), c.getAngka(), c.getcolor());
 	  //   }
 	  // }
 	
@@ -55,7 +56,7 @@ public class Player extends PlayerBase{
 	  //   CardUmum cardToRemove;
 	  //   for(CardUmum c : this.cardsCollection) {
 	  //     if (c.getPower() == power){
-	  //       if ((c.getAngka() == angka) && (c.getColor() == color)){
+	  //       if ((c.getAngka() == angka) && (c.getcolor() == color)){
 	  //         cardToRemove = c;
 	  //         break;
 	  //       }
@@ -80,76 +81,87 @@ public class Player extends PlayerBase{
 		// 	System.out.printf("berhasil membuang kartu power: %b, angka: %d, color: %d\n", power, angka, color);
 			
 		// }
-	public CardUmum discard(CardUmum saatini){
-		CardUmum input = saatini;
-		CardUmum cardtobediscarded, carddummy;
+	public CardUmum discard(CardUmum saatini, int terima){
+		CardUmum input = null;
+		int commandnumber = 0;
 		if (saatini instanceof NormalCard){
 			input = (NormalCard)saatini;
 		}
 		else if (saatini instanceof PowerCard){
 			input = (PowerCard)saatini;
 		}
-        System.out.println("Kartu saat ini adalah : "+input.getAngka() + " "+ input.getColor());
+//		CardUmum input = baru;
+		System.out.println("Kartu saat ini adalah : "+input.getAngka() + " "+ input.getcolor());
+		System.out.println(cardsCollection.size());
         this.printcard();
-        System.out.println(""+(cardCollection.size()+1) +". Ambil kartu");
-        boolean boleh, izin;
+        boolean boleh = false;
+		boolean izin = false;
         System.out.print("Masukkan kartu yang mau dikeluarkan : ");
         Scanner sc = new Scanner(System.in);
         int p = sc.nextInt();
-        if (p == cardCollection.size() + 1){
+        if (p == cardsCollection.size() + 1){
             izin = true;
         }
         else {
-            izin = (cardCollection.get(p-1).iswarnasama(input) || cardCollection.get(p-1).isangkasama(input));
+            izin = (cardsCollection.get(p-1).iswarnasama(input) || cardsCollection.get(p-1).isangkasama(input));
         }
-        boleh = (p >= 1 && p<=cardCollection.size()+1);
-        while (izin == false || boleh == false){
+        boleh = (p >= 1 && p<=cardsCollection.size()+1);
+        while (!izin || !boleh){
             System.out.println("input salah.");
             System.out.print("Masukkan kartu yang mau dikeluarkan : ");
             p = sc.nextInt();
-            if ((p-1) == cardCollection.size()){
+            if ((p-1) == cardsCollection.size()){
                 izin = true;
             }
             else {
-                izin = (cardCollection.get(p-1).iswarnasama(input) || cardCollection.get(p-1).isangkasama(input));
+                izin = (cardsCollection.get(p-1).iswarnasama(input) || cardsCollection.get(p-1).isangkasama(input));
             }
-            boleh = (p >= 1 && p<=cardCollection.size()+1);
+            boleh = (p >= 1 && p<=cardsCollection.size()+1);
         }
-        if (p == cardCollection.size()+1){
-            this.drawCard(1);
-        }
-        else {
-            carddummy = cardCollection.get(p-1);
-            cardCollection.remove((p-1));
-			if (carddummy instanceof PowerCard){
-				cardtobediscarded = (PowerCard)carddummy;
-				if (cardtobediscarded.getcolornumber()==210){
+		if (p > 0 && p<= cardsCollection.size()){
+			CardUmum cardsampah = cardsCollection.remove(p-1);
+			CardUmum  discardedcard = null;
+				//cardsCollection.remove((p-1));
+			if (cardsampah instanceof PowerCard){//typecasting cardtobediscarded jadi power card karena carddummy adalah power card
+				discardedcard = (PowerCard)cardsampah;
+				if (discardedcard.getcolornumber()==210){
 					System.out.println("Pilih warna :");
 					System.out.println("1. Merah");
 					System.out.println("2. Biru");
 					System.out.println("3. Kuning");
 					System.out.println("4. Hijau");
 					int inp = sc.nextInt();
+					while (inp >4 || inp <1){
+						System.out.println("Warna tersebut tidak nyata");
+						inp = sc.nextInt();
+					}
 					if (inp == 1){
-						cardtobediscarded.setColor(2);
+						discardedcard.setColor(2);
 					}
-					if (inp == 2){
-						cardtobediscarded.setColor(3);
+					else if (inp == 2){
+						discardedcard.setColor(3);
 					}
-					if (inp == 3){
-						cardtobediscarded.setColor(5);
+					else if (inp == 3){
+						discardedcard.setColor(5);
 					}
-					if (inp == 4){
-						cardtobediscarded.setColor(6);
+					else if (inp == 4){
+						discardedcard.setColor(7);
 					}
 				}
 			}
-			else{
-				cardtobediscarded = (NormalCard)carddummy;
+			else if (cardsampah instanceof NormalCard){
+				discardedcard = (NormalCard)cardsampah;
 			}
-            }
-        sc.close();
-        return cardtobediscarded;
+			return discardedcard;
+		}
+		else if (p == cardsCollection.size()+1){
+			this.playerdraw(1);
+			return saatini;
+		}
+		else{
+			CardUmum baru = new NormalCard(4, 7);
+			return baru;
+		}
 	}
 	public boolean havePlus(){
 		boolean found = false;
@@ -163,5 +175,23 @@ public class Player extends PlayerBase{
 			}
 		}
 		return found;
+	}
+	public boolean havemultiplecard(){
+		boolean have = false;
+		for (CardUmum c : cardsCollection){
+			CardUmum a = null;
+			if (c instanceof PowerCard){
+				a = (PowerCard)c;
+			}
+			else if (c instanceof NormalCard){
+				a = (NormalCard)c;
+			}
+			for (CardUmum d : cardsCollection){
+				if (d.equals(a) && d!=a){
+					have = true;
+				}
+			}
+		}
+		return have;
 	}
 }

@@ -175,12 +175,25 @@ public class Deck {
     }
     public CardUmum drawcard(){
         Random random = new Random();
-        int rnd = random.nextInt(55);
+        int rnd = random.nextInt(54);
         return cards.get(rnd);
     }
     public CardUmum openingcard(){
         Random random = new Random();
         int rnd = random.nextInt(40);
         return cards.get(rnd+14);
+    }
+    public void printDeck(){
+        for (int i = 0; i<cards.size();i++){
+            CardUmum carddummy = null;
+            if (cards.get(i) instanceof PowerCard){
+                carddummy = (PowerCard)cards.get(i);
+            }
+            else if (cards.get(i) instanceof NormalCard){
+                carddummy = (NormalCard)cards.get(i);
+            }
+            System.out.print(""+i+".");
+            carddummy.printcardinfo();
+        }
     }
 }
