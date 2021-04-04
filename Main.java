@@ -4,7 +4,14 @@ import java.util.Collections;
 import java.util.Scanner;
 import java.util.Random;
 public class Main{
+    public static void printbatas(){
+        for (int i = 0; i< 50; i++){
+            System.out.print("==");
+        }
+        System.out.println("");
+    }
     public static void menu(){
+        printbatas();
         System.out.println("1. List Players");
         System.out.println("2. List Cards");
         System.out.println("3. Discard");
@@ -12,6 +19,7 @@ public class Main{
         System.out.println("5. Declare Hiji");
         System.out.println("6. View Player in Turn");
         System.out.println("7. Help");
+        printbatas();
     }
     public static void printhelp(){
         System.out.println("What help do you need?");
@@ -83,6 +91,14 @@ public class Main{
         Scanner sca = new Scanner(System.in);
         int jumplay;
         boolean gamenotstarted = true;
+        for (int a = 0; a < 50; a++){
+            System.out.print("=");
+        }
+        System.out.println("\nWelcome to Hiji");
+        for (int a = 0; a < 50; a++){
+            System.out.print("=");
+        }
+        System.out.println("");
         while (gamenotstarted){
             mainmenu();
             int pilihan = sca.nextInt();
@@ -156,6 +172,7 @@ public class Main{
                 menu();
                 System.out.print("Masukkan angka : ");
                 pilih = sca.nextInt();
+                String variabelsampah = sca.nextLine();
                 
                 if(pilih == 1){
                     for(Player p : listplayer){
@@ -208,7 +225,7 @@ public class Main{
                             }
                             else if (tes.getAngkaangka() == 1){
                                 Collections.reverse(listplayer);
-                                for (int j = 0; i< numdiscard; i++){
+                                for (int j = 0; j< numdiscard; i++){
                                     for (i = 0; i< jumplay;i++){
                                         if (playerinturn.equals(listplayer.get(i))){
                                             giliran = i;
@@ -345,13 +362,13 @@ public class Main{
                     menu();
                     System.out.print("berikan perintah : ");
                     int perintah = sca.nextInt();
-                    while (perintah != 5){
+                    while (perintah != 5 && System.currentTimeMillis() - startTime < 3000){
                         menu();
                         System.out.print("berikan perintah : ");
                         perintah = sca.nextInt();
                     }
                     if (System.currentTimeMillis() - startTime > 3000){
-                        System.out.println("lo telat ng*****");
+                        System.out.println("Anda terlambat");
                         playerinturn.playerdraw(2);
                     }
                 
